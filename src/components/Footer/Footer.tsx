@@ -8,7 +8,7 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                     <div className="col-span-1 md:col-span-2">
                         <Link href="/" className="text-2xl font-bold tracking-tighter mb-4 block">
-                            VERTEXT
+                            VERTEX
                         </Link>
                         <p className="text-gray-400 max-w-sm">
                             Pioneering the future of digital interaction through AI, Automation, and intelligent design.
@@ -38,7 +38,7 @@ export default function Footer() {
 
                 <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-gray-500 text-sm">
-                        © {new Date().getFullYear()} Vertext Agency. All rights reserved.
+                        © {new Date().getFullYear()} Vertex Agency. All rights reserved.
                     </p>
 
                     <div className="flex space-x-4">
