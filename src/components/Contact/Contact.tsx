@@ -31,7 +31,7 @@ export default function Contact() {
                                 </div>
                                 <div>
                                     <h4 className="font-bold">Email Us</h4>
-                                    <p className="text-gray-400">hello@vertext.agency</p>
+                                    <p className="text-gray-400">hello@vertex.agency</p>
                                 </div>
                             </div>
 

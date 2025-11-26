@@ -34,7 +34,7 @@ export default function Navbar() {
         >
             <div className="container mx-auto px-6 flex justify-between items-center">
                 <Link href="/" className="text-2xl font-bold tracking-tighter">
-                    VERTEXT
+                    VERTEX
                 </Link>
 
                 {/* Desktop Nav */}

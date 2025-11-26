@@ -7,7 +7,7 @@ import Footer from "@/components/Footer/Footer";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Vertext Agency | AI & Automation Solutions",
+  title: "Vertex Agency | AI & Automation Solutions",
   description: "Premium agency specializing in AI Agents, Automation, and Next-Gen Web Solutions.",
 };
 
