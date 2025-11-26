@@ -1,14 +1,44 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, MessageSquare, Phone } from "lucide-react";
 
 export default function Contact() {
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        subject: "General Inquiry",
+        message: ""
+    });
+    const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setStatus("submitting");
+
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
+            if (res.ok) {
+                setStatus("success");
+                setFormData({ name: "", email: "", subject: "General Inquiry", message: "" });
+            } else {
+                setStatus("error");
+            }
+        } catch (e) {
+            setStatus("error");
+        }
+    };
+
     return (
         <section id="contact" className="py-20 bg-background relative">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-primary/5 via-background to-background pointer-events-none" />
 
-            <div className="container mx-auto px-6 relative z-10">
+            <div className="container mx-auto px-6 md:px-20 lg:px-30 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
@@ -31,7 +61,7 @@ export default function Contact() {
                                 </div>
                                 <div>
                                     <h4 className="font-bold">Email Us</h4>
-                                    <p className="text-gray-400">hello@vertex.agency</p>
+                                    <p className="text-gray-400">contact@vertex-ai.tech</p>
                                 </div>
                             </div>
 
@@ -53,12 +83,15 @@ export default function Contact() {
                         viewport={{ once: true }}
                         className="glass p-8 rounded-2xl"
                     >
-                        <form className="space-y-6">
+                        <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-gray-300">Name</label>
                                     <input
                                         type="text"
+                                        required
+                                        value={formData.name}
+                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                         className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-primary transition-colors"
                                         placeholder="John Doe"
                                     />
@@ -67,6 +100,9 @@ export default function Contact() {
                                     <label className="text-sm font-medium text-gray-300">Email</label>
                                     <input
                                         type="email"
+                                        required
+                                        value={formData.email}
+                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                         className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-primary transition-colors"
                                         placeholder="john@example.com"
                                     />
@@ -75,7 +111,11 @@ export default function Contact() {
 
                             <div className="space-y-2">
                                 <label className="text-sm font-medium text-gray-300">Subject</label>
-                                <select className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-primary transition-colors text-gray-300">
+                                <select
+                                    value={formData.subject}
+                                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-primary transition-colors text-gray-300"
+                                >
                                     <option>General Inquiry</option>
                                     <option>Project Proposal</option>
                                     <option>Partnership</option>
@@ -86,14 +126,24 @@ export default function Contact() {
                                 <label className="text-sm font-medium text-gray-300">Message</label>
                                 <textarea
                                     rows={4}
+                                    required
+                                    value={formData.message}
+                                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                                     className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-primary transition-colors resize-none"
                                     placeholder="Tell us about your project..."
                                 />
                             </div>
 
-                            <button className="w-full py-4 bg-gradient-to-r from-primary to-secondary text-white font-bold rounded-lg hover:opacity-90 transition-opacity">
-                                Send Message
+                            <button
+                                type="submit"
+                                disabled={status === "submitting" || status === "success"}
+                                className="w-full py-4 bg-gradient-to-r from-primary to-secondary text-white font-bold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
+                            >
+                                {status === "submitting" ? "Sending..." : status === "success" ? "Message Sent!" : "Send Message"}
                             </button>
+                            {status === "error" && (
+                                <p className="text-red-500 text-center">Something went wrong. Please try again.</p>
+                            )}
                         </form>
                     </motion.div>
                 </div>

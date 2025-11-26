@@ -39,7 +39,7 @@ const services = [
 export default function Services() {
     return (
         <section id="services" className="py-20 bg-background relative overflow-hidden">
-            <div className="container mx-auto px-6">
+            <div className="container mx-auto px-6 md:px-20 lg:px-30">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}

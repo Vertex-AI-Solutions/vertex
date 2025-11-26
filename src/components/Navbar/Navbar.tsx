@@ -32,7 +32,7 @@ export default function Navbar() {
                 scrolled ? "glass py-4" : "bg-transparent py-6"
             )}
         >
-            <div className="container mx-auto px-6 flex justify-between items-center">
+            <div className="container mx-auto px-6 md:px-20 lg:px-30 flex justify-between items-center">
                 <Link href="/" className="text-2xl font-bold tracking-tighter">
                     VERTEX
                 </Link>

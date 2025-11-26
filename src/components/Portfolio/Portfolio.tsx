@@ -29,7 +29,7 @@ const projects = [
 export default function Portfolio() {
     return (
         <section id="portfolio" className="py-20 bg-black/50">
-            <div className="container mx-auto px-6">
+            <div className="container mx-auto px-6 md:px-20 lg:px-30">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -53,6 +53,7 @@ export default function Portfolio() {
                             className="group relative overflow-hidden rounded-2xl aspect-video cursor-pointer"
                         >
                             <Image
+                                unoptimized={true}
                                 src={project.image}
                                 alt={project.title}
                                 fill
